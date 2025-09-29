@@ -1,0 +1,9 @@
+services:
+  server:
+    container_name: server
+    build:
+      context: ./server/
+      dockerfile: ./docker/jsp-Dockerfile
+    restart: on-failure
+    ports:
+      - "80:8080"

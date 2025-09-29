@@ -1,0 +1,13 @@
+FROM eclipse-temurin:17-jdk-alpine AS build
+
+# copy maven configs
+COPY pom.xml mvnw ./
+COPY .mvn .mvn
+
+# copy source code
+COPY src src
+RUN ./mvnw clean package
+
+FROM quay.io/wildfly/wildfly:latest-jdk17
+WORKDIR server
+COPY --from=build ./target/server-1.0.war /opt/jboss/wildfly/standalone/deployments/ROOT.war

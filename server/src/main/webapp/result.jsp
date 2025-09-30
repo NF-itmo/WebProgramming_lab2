@@ -17,8 +17,6 @@
     <link rel="stylesheet" type="text/css" href="assets/css/main.css">
     <link rel="stylesheet" type="text/css" href="assets/css/error.css">
     <link rel="stylesheet" type="text/css" href="assets/css/history.css">
-
-    <script src="./js/error.js"></script>
 </head>
 <body>
     <!-- Config section -->

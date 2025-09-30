@@ -13,12 +13,10 @@ class ErrorFactory {
     showError(message, showTimeMs = 5000){
         this.#clearErrors();
 
-        // Слздаём элемент
         const errorDiv = document.createElement('div');
         errorDiv.className = this.#errorBlockClassName;
         errorDiv.textContent = message;
 
-        // Вставка
         document.body.appendChild(errorDiv);
 
         // Убираем по прошествии времени

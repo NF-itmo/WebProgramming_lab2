@@ -17,9 +17,8 @@
     <link rel="stylesheet" type="text/css" href="assets/css/error.css">
     <link rel="stylesheet" type="text/css" href="assets/css/history.css">
 
-    <script src="./js/plot.js"></script>
-    <script src="./js/error.js"></script>
-    <script src="./js/form.js"></script>
+    <script src="js/plot.js"></script>
+    <script src="js/common/error.js"></script>
 </head>
 <body>
     <div class="container">
@@ -199,10 +198,10 @@
 
     <script>
         const error = new ErrorFactory("error-message");
-        const form = new Form("graph-test-form")
-        
+
+        // Setting the coordinates of points on plot when page loaded
         document.addEventListener("DOMContentLoaded", () => {
-            const circles = document.getElementById("graph-svg").querySelectorAll("circle").forEach(c => {
+            document.getElementById("graph-svg").querySelectorAll("circle").forEach(c => {
                 const x = parseFloat(c.dataset.x);
                 const y = parseFloat(c.dataset.y);
                 const r = parseFloat(c.dataset.r);
@@ -217,9 +216,9 @@
 
         const checkIfFormContainsAllValues = (X,Y,R) => {
             return new Promise((resolve, reject) => {
-                if (isNaN(X)) reject("X отсутствует или имеет неврный формат")
-                if (isNaN(Y)) reject("Y отсутствует или имеет неврный формат")
-                if (isNaN(R)) reject("R отсутствует или имеет неврный формат")
+                if (isNaN(X)) reject("X отсутствует или имеет неверный формат")
+                if (isNaN(Y)) reject("Y отсутствует или имеет неверный формат")
+                if (isNaN(R)) reject("R отсутствует или имеет неверный формат")
 
                 resolve([X,Y,R]);
             })
@@ -240,7 +239,6 @@
 
         const handleSubmit = (event) => {
             event.preventDefault();
-
             const formElem = document.forms["graph-test-form"];
 
             const X = Number(formElem["X"].value);
@@ -257,10 +255,24 @@
         }
 
         const handleSvgClick = (event) => {
-            handlePlotClick(event).then(
+            const formElem = document.forms["graph-test-form"];
+
+            handlePlotClick(
+                event,
+                document.forms["graph-test-form"]["R"].value,
+                document.getElementById("graph-svg")
+            ).then(
                 result => {
                     validateCords(...result).then(
-                        result => form.send(...result),
+                        result => {
+                            const [X,Y,R] = result;
+
+                            formElem["X"].value = X.toFixed(2);
+                            formElem["Y"].value = Y;
+                            formElem["R"].value = R;
+
+                            formElem.submit()
+                        },
                         errorMsg => error.showError(errorMsg)
                     )
                 },

@@ -38,22 +38,19 @@ const findNearest = (target, elemsArray) => {
     return closest;
 }
 
-// Кликоуловтель 2.1
-const handlePlotClick = (event) => {
+// Кликоуловтель 2.2
+const handlePlotClick = (event, RValue, plotElem) => {
     return new Promise((resolve, reject) => {
-        const R = document.getElementById("graph-test-form")["R"].value;
+        if (isNaN(RValue)) reject("Сначала выберите радиус R");
 
-        if (!R) reject("Сначала выберите радиус R");
+        const rect = plotElem.getBoundingClientRect();
 
-        const plot = document.getElementById("graph-svg");
-        const rect = plot.getBoundingClientRect();
-
-        const [X,Y,] = convertSvgCordsToCheckerCords(
+        const [X,Y,R] = convertSvgCordsToCheckerCords(
             event.clientX, event.clientY,
             rect.width/2, rect.height/2,
             rect.left, rect.top,
             80,
-            R
+            RValue
         )
 
         resolve(

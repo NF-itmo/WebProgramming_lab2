@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="u" uri="utils" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
@@ -171,7 +170,7 @@
                     <tbody id="historyTableBody">
                         <c:choose>
                             <c:when test="${not empty results}">
-                                <c:forEach var="res" items="${u:reverse(results)}">
+                                <c:forEach var="res" items="${results}">
                                     <tr>
                                         <td><fmt:formatDate type="both" value="${ res.time }"/></td>
                                         <td>${ res.elapsedTimeNs } ns</td>

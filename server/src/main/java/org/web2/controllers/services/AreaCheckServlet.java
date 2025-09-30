@@ -13,6 +13,7 @@ import org.web2.controllers.services.utils.time.Stopwatch;
 import org.web2.model.ResultBean;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.Date;
 import java.util.ArrayList;
 
@@ -50,12 +51,12 @@ public class AreaCheckServlet extends HttpServlet {
 
             HttpSession session = req.getSession();
             @SuppressWarnings("unchecked")
-            ArrayList<ResultBean> results = (ArrayList<ResultBean>) session.getAttribute("results");
+            ArrayDeque<ResultBean> results = (ArrayDeque<ResultBean>) session.getAttribute("results");
             if (results == null) {
-                results = new ArrayList<>();
+                results = new ArrayDeque<>();
             }
 
-            results.add(newResult);
+            results.addFirst(newResult);
             session.setAttribute("results", results);
             session.setAttribute("lastResult", newResult);
 

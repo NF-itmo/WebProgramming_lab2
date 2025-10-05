@@ -15,7 +15,6 @@ import org.web2.model.ResultBean;
 import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.Date;
-import java.util.ArrayList;
 
 @WebServlet("/check")
 public class AreaCheckServlet extends HttpServlet {
@@ -34,7 +33,7 @@ public class AreaCheckServlet extends HttpServlet {
                     req.getParameter("R")
             );
 
-            boolean hit = checker.test(
+            boolean hit = checker.check(
                     Float.parseFloat(requestData.X()),
                     Float.parseFloat(requestData.Y()),
                     Integer.parseInt(requestData.R())

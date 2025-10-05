@@ -4,7 +4,11 @@ import org.web2.controllers.services.checkers.utils.PlotQuarters;
 import org.web2.controllers.services.checkers.utils.PlotUtils;
 
 public class Checker implements CheckerFunction{
-    public boolean test(final float x, final float y, final int r) {
+    public boolean check(
+            final float x,
+            final float y,
+            final int r
+    ) {
         final PlotQuarters quarter = PlotUtils.getQuarter(x, y);
 
         if (quarter == PlotQuarters.FIRST_QUADRANT) return firstQuarterTester(x, y, r);

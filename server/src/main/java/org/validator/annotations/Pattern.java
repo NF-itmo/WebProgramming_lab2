@@ -6,7 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.RECORD_COMPONENT, ElementType.ANNOTATION_TYPE})
+@Target({
+        ElementType.FIELD,
+        ElementType.RECORD_COMPONENT,
+        ElementType.ANNOTATION_TYPE
+})
 @NotNull
 public @interface Pattern {
     String errorMsg() default "Pattern mismatch";

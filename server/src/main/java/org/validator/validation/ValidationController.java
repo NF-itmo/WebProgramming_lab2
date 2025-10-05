@@ -7,6 +7,7 @@ import org.validator.annotations.Size;
 import org.validator.validation.validators.*;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.util.HashMap;
 
@@ -25,17 +26,15 @@ public class ValidationController {
         for (Field field : object.getClass().getDeclaredFields()) {
             try {
                 field.setAccessible(true);
-
-                Object value = field.get(object);
-                validateField(value, field.getAnnotations());
+                validate(field, field.get(object));
             } catch (IllegalAccessException e) {
                 throw new RuntimeException("Failed to validate field: " + field.getName(), e);
             }
         }
     }
 
-    private static <T extends Annotation> void validateField(Object value, T[] annotations) {
-        for (Annotation annotation : annotations) {
+    public static void validate(AnnotatedElement annotatedElement, Object value) {
+        for (Annotation annotation : annotatedElement.getAnnotations()) {
             validateAnnotation(annotation, value);
         }
     }

@@ -6,7 +6,11 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE})
+@Target({
+        ElementType.FIELD,
+        ElementType.RECORD_COMPONENT,
+        ElementType.ANNOTATION_TYPE
+})
 @NotNull(errorMsg = "Number field is required")
 @Size(min = 1, errorMsg = "Number must not be empty")
 @Pattern(pattern = "^-?\\d+(\\.\\d+)?$", errorMsg = "Must be a valid number")

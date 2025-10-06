@@ -5,9 +5,10 @@ COPY pom.xml mvnw ./
 COPY .mvn .mvn
 
 # copy source code
-COPY src src
+COPY validator-api validator-api
+COPY server server
 RUN ./mvnw clean package
 
 FROM quay.io/wildfly/wildfly:latest-jdk17
 WORKDIR server
-COPY --from=build ./target/server-1.0.war /opt/jboss/wildfly/standalone/deployments/ROOT.war
+COPY --from=build ./server/target/server-1.0.war /opt/jboss/wildfly/standalone/deployments/ROOT.war
